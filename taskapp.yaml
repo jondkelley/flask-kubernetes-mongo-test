@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tasksapp
+  labels:
+    app: tasksapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tasksapp
+  template:
+    metadata:
+      labels:
+        app: tasksapp
+    spec:
+      securityContext:
+        runAsUser: 101000
+      containers:
+        - name: tasksapp
+          image: jondkelley/flask-kubernetes-mongo:v1
+          ports:
+            - containerPort: 5000
+          imagePullPolicy: Always
